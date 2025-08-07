@@ -13,6 +13,7 @@
   }
   let counter = 1;
   let score=0;
+  let scoreObj = {scoreValue:score}
   const hintBtn = document.getElementById("hint");
   const actionDialog = document.getElementById("actionDialog")
   const scoreText =  document.getElementById("score")
@@ -42,7 +43,7 @@
    container.append(elem)
   }
 
-      
+     
   function check(){
     
       let userInput = [...document.querySelectorAll(`.input-${counter}`)];
@@ -70,8 +71,8 @@ userInput[i].style.backgroundColor="#FFD700";
           resultBox.innerHTML=`<h2>You Got it Right</h2>
           <p>5points added to your score</p>
           <div>
-            <button type="button" id="" onclick="goHome()" >Home</button>
-            <button type="button" id="" onclick="playAgain()" >Play Again</button>
+            <button type="button" onclick="goHome()" >Home</button>
+            <button type="button" onclick="playAgain()" >Play Again</button>
             </div>`;
             score+=5;
         scoreText.textContent=score;
@@ -90,12 +91,22 @@ userInput[i].style.backgroundColor="#FFD700";
       }
       
     }
+    function checkInput(){
+        const inputs = document.querySelectorAll(".input");
+     inputs.forEach(item=>item.addEventListener("input",function(){
+        if(this.value.length>1){
+      this.value=this.value.slice(0,1);
+       
+        }
+     }))
+    }
     function startGame(elem){
         addInput();
         container.style.display="flex";
         checker.style.display="block";
         hintBtn.style.display="block";
      elem.parentElement.style.display="none";
+     checkInput()
  
     }
     function continueGame(elem){
@@ -128,6 +139,7 @@ userInput[i].style.backgroundColor="#FFD700";
         container.style.display="flex";
         checker.style.display="block";
         hintBtn.style.display="block";
+        checkInput()
      }
     function openDialog(){
 dialogInstruction.showModal()
