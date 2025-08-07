@@ -38,7 +38,7 @@
     counter++;
     let elem = document.createElement("div")
    for(let i=0;i<4;i++){
-     elem.innerHTML+=`<input type="number" class="input input-${counter}"/>`
+     elem.innerHTML+=`<input type="number" class="input input-${counter}" oninput="checkInput();"/> `
    }
    container.append(elem)
   }
@@ -47,6 +47,7 @@
   function check(){
     
       let userInput = [...document.querySelectorAll(`.input-${counter}`)];
+      
       let userInputValues = [...document.querySelectorAll(`.input-${counter}`)].map(item=>item.value=item.value===""?"-1":item.value).map(Number)
       let pcCount = mode(randomArray)
   let userCount = mode(userInputValues)
