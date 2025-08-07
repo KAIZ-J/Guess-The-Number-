@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guess the Number</title>
+  <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Kablammo|Sour Gummy|Atma|Poppins|Montserrat"
+    />
+ <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="home">
+    <p id="score-container">Total Points : <span id="score">0</span></p>
+    <h1>Guess the Number</h1>
+<button type="button" id="start" onclick="startGame(this)" >Start Game</button><br>
+<button id="instrucion-btn" type="button" onclick="openDialog()">Instructions</button>
+  </div>
+  <dialog id="instructions">
+    <button id="close-dialog" onclick="closeDialog(this)" type="button">X</button>
+    <div>
+      <h1>Instructions</h1>
+     <details><summary>Objective</summary>Guess the hidden 4-digit number in 5 tries.</details>
+      <details>
+        <summary>Rules</summary>
+         <p>Each guess must be a valid 4-digit number.</p>
+  <p>A number in the correct spot will be highlighted in green.</p>
+            <p>A number present in the solution but in the wrong position will be highlighted yellow.</p>
+            <p>A number not in the solution will be grayed out.</p>
+      </details>
+        <details>
+      <summary>Notes</summary>
+        <p>Empty Input will be taken as -1</p>
+          <p>Then Numbers are between 0-9</p>
+          <p>There might be duplicates in the hidden number</p>
+      </details>
+    </div>
+  </dialog>
+  <dialog id="actionDialog"></dialog>
+  <div id="container">
+    
+  </div>
+  <div id="result-box"></div>
+  <button type="button" id="checker" onclick="continueGame(this)" >Check</button>
+  <button type="button" id="hint" onclick="openActionDialog(this)" >Hint?</button>
+  <script src="script.js">
+  
+  </script>
+</body>
+
+</html>
