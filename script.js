@@ -150,7 +150,7 @@ dialogInstruction.showModal()
         actionDialog.innerHTML=`Here You Go ${randomNum};
         <button type="button" onclick="closeDialog(this)">Close</button>`;
         score-=6;
-        elem.display.style="none";
+        elem.style.display="none";
         hintBtn.style.display="none";
         
       }
