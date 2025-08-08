@@ -1,5 +1,6 @@
 
-   let arrayNums = [0,1,2,3,4,5,6,7,8,9];
+  let objTry = {0:true,1:true,2:true,3:true,4:true,5:true,6:true,7:true,8:true,9:true}
+  let arrayNums = [0,1,2,3,4,5,6,7,8,9];
   const hintBtn = document.getElementById("hint");
   const actionDialog = document.getElementById("actionDialog")
   const scoreText =  document.getElementById("score")
@@ -7,7 +8,7 @@
   const home = document.getElementById("home")
   const resultBox =  document.getElementById("result-box")
   const checker = document.getElementById("checker");
-  checker.innerHTML=arrayNums.map(el=>`<button type="button" onclick="addNumber(this)" >${el}</button>`).join(" ")
+  checker.innerHTML=arrayNums.map(el=>`<button type="button" onclick="addNumber(this)" class="num-btn">${el}</button>`).join(" ")
   checker.innerHTML+=`<button type="button" onclick="deleteInput()" id="remove" >X</button>
   <button type="button" onclick="continueGame(this)" id="check-btn" >Check</button>`;
   const container= document.getElementById("container");
@@ -27,7 +28,6 @@
   let counter = 1;
    let cIn = 1;
   let score=0;
-  let scoreObj = {scoreValue:score}
   
   
   function random(array){
@@ -64,23 +64,39 @@ for(let i=0;i<4;i++){
 
      //whole prcosess of checking the number inputed by user
   function check(){
+    let numBtns = [...document.querySelectorAll(`.num-btn`)];
       let userInput = [...document.querySelectorAll(`.input-${counter}`)];
-      let userInputValues = [...document.querySelectorAll(`.input-${counter}`)].map(item=>item.value=item.value===""?"-1":item.value).map(Number)
+      let userInputValues = [...document.querySelectorAll(`.input-${counter}`)].map(item=>item.value=item.value===""?"0":item.value).map(Number)
       let pcCount = mode(randomArray)
   let userCount = mode(userInputValues)
       for(let i=0;i<4;i++){
+        let numCurrent = numBtns.find(el=>Number(el.textContent)===userInputValues[i]);
      if(userInputValues[i]===randomArray[i]){
    userInput[i].style.backgroundColor="#00FA9A";
    userInput[i].style.animation="anima 0.4s";
+  //  numCurrent.style.animation="rotate 1s ease-in-out forwards";
+   numCurrent.style.backgroundColor="#00FA9A";
+   objTry[userInputValues[i]]=false;
+   
+   
    userCount[userInputValues[i]]-=1;
    pcCount[userInputValues[i]]-=1;
         }
         else if(randomArray.includes(userInputValues[i]) && pcCount[userInputValues[i]] > userCount[userInputValues[i]]-pcCount[userInputValues[i]]){
 userInput[i].style.backgroundColor="#FFD700";
+if(objTry[userInputValues[i]]===true){
+numCurrent.style.backgroundColor="#FFD700";
+objTry[userInputValues[i]]=false;
+}
+
         }
         else{
           userCount[userInputValues[i]]-=1;
           userInput[i].style.backgroundColor="gray";
+          if(objTry[userInputValues[i]]===true){
+numCurrent.style.backgroundColor="gray";
+}
+          
           userInput[i].style.animation="shake .2s"
         }
       }
@@ -169,7 +185,10 @@ if(save.value==="" && cIn>1){
       randomArray = randomNum.split("").map(Number)
       container.innerHTML=""
   home.style.display="flex";
-  resultBox.style.display="none"
+  resultBox.style.display="none";
+  document.querySelectorAll(`.num-btn`).forEach(el=>{el.style.backgroundColor="";
+    el.style.animation=""
+  })
      }
      function playAgain(){
        counter=1;
@@ -181,7 +200,9 @@ if(save.value==="" && cIn>1){
         container.style.display="flex";
         checker.style.display="grid";
         hintBtn.style.display="block";
-        checkInput()
+        document.querySelectorAll(`.num-btn`).forEach(el=>{el.style.backgroundColor="";
+    el.style.animation=""
+  })
      }
     function openDialog(){
 dialogInstruction.showModal()

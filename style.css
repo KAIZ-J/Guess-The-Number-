@@ -41,6 +41,7 @@ body{
       border-radius: 10px;
       outline:none;
       transition:background-color 0.3s ease;
+      color: #090d11;
     }
     #checker{
         display: none;
@@ -58,6 +59,7 @@ grid-template-columns: repeat(5,1fr);
       font-size: 1rem;
       color: #090d11;
       cursor: pointer;
+      transition: background-color .5s ease;
     }
    
     @keyframes anima {
@@ -81,6 +83,13 @@ grid-template-columns: repeat(5,1fr);
     #check-btn{
         grid-column-start: span 4;
         width: auto;
+    }
+    @keyframes rotate{
+      0%{
+        transform:rotateX(180deg)
+      }
+      
+      100%{transform:rotateX(0deg)}
     }
      @media (max-width:500px){
       #checker{
