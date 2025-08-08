@@ -102,7 +102,8 @@ numCurrent.style.backgroundColor="gray";
       }
       //if the user input is right beofre 5 tries or in the 5th
       if(userInputValues.join("")===randomNum){
-        checker.style.display="none";
+        setTimeout(function(){
+          checker.style.display="none";
         hintBtn.style.display="none";
           container.style.display="none";
           resultBox.style.display="flex";
@@ -112,6 +113,8 @@ numCurrent.style.backgroundColor="gray";
             <button type="button" onclick="goHome()" >Home</button>
             <button type="button" onclick="playAgain()" >Play Again</button>
             </div>`;
+        },1000)
+        
             score+=5;
             localStorage.setItem("myScore",score);
             scoreText.textContent=score;
@@ -119,7 +122,8 @@ numCurrent.style.backgroundColor="gray";
       }
       //when trial ends
       else if(counter>=5){
-        checker.style.display="none";
+         setTimeout(function(){
+          checker.style.display="none";
          hintBtn.style.display="none";
         container.style.display="none";
         resultBox.style.display="flex";
@@ -129,6 +133,8 @@ numCurrent.style.backgroundColor="gray";
             <button type="button" id="backHome" onclick="goHome()">Home</button>
             <button type="button" id="" onclick="playAgain()" >Play Again</button>
             </div>`;
+        },300)
+        
       }
       counter++;
       cIn = 1;
