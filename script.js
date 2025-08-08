@@ -27,8 +27,8 @@
   }
   let counter = 1;
    let cIn = 1;
-  let score=0;
-  
+  let score=parseInt(localStorage.getItem("myScore")) || 0;
+  scoreText.textContent=score;
   
   function random(array){
     let num = "";
@@ -113,7 +113,9 @@ numCurrent.style.backgroundColor="gray";
             <button type="button" onclick="playAgain()" >Play Again</button>
             </div>`;
             score+=5;
-        scoreText.textContent=score;
+            localStorage.setItem("myScore",score);
+            scoreText.textContent=score;
+            
       }
       //when trial ends
       else if(counter>=5){
@@ -227,6 +229,8 @@ dialogInstruction.showModal()
         actionDialog.innerHTML=`Here You Go ${randomNum};
         <button type="button" onclick="closeDialog(this)">Close</button>`;
         score-=6;
+        localStorage.setItem("myScore",score)
+        scoreText.textContent=score;
         elem.style.display="none";
         hintBtn.style.display="none";
         
