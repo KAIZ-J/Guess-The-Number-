@@ -136,18 +136,34 @@ userInput[i].style.backgroundColor="#FFD700";
     }
    
     function addNumber(elem){
-       const save = document.querySelector(`.input-${counter}-${cIn}`);
-       if(save!==null){
+       let save = document.querySelector(`.input-${counter}-${cIn}`);
+       if(save!==null && cIn<=4){
+        cIn++; 
    save.value=elem.innerText;
        }
-     cIn++; 
+       else{
+        cIn=4;
+        save = document.querySelector(`.input-${counter}-${cIn}`)
+       save.value=elem.innerText;
+       }
+    
     }
     function deleteInput(){
-       let userInput = [...document.querySelectorAll(`.input-${counter}`)];
-       for(let i=0;i<userInput.length;i++){
-      userInput[i].value==="";
+        let save = document.querySelector(`.input-${counter}-${cIn}`);
+        if(save!==null){
+if(save.value==="" && cIn>1){
+          cIn--;
+          save = document.querySelector(`.input-${counter}-${cIn}`);
+          save.value=""
+        }
+       else{
+        save.value=""
        }
-       cIn=1;
+        }
+        else{
+          cIn=4;
+        }
+     
     }
      function goHome(){
       counter=1;
