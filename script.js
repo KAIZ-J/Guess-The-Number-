@@ -189,6 +189,7 @@ if(save.value==="" && cIn>1){
   document.querySelectorAll(`.num-btn`).forEach(el=>{el.style.backgroundColor="";
     el.style.animation=""
   })
+  objTry = {0:true,1:true,2:true,3:true,4:true,5:true,6:true,7:true,8:true,9:true}
      }
      function playAgain(){
        counter=1;
@@ -203,6 +204,7 @@ if(save.value==="" && cIn>1){
         document.querySelectorAll(`.num-btn`).forEach(el=>{el.style.backgroundColor="";
     el.style.animation=""
   })
+  objTry = {0:true,1:true,2:true,3:true,4:true,5:true,6:true,7:true,8:true,9:true}
      }
     function openDialog(){
 dialogInstruction.showModal()
