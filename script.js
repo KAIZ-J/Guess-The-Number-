@@ -27,8 +27,6 @@
   let counter = 1;
    let cIn = 1;
   let score=0;
-  let scoreObj = {scoreValue:score}
-  
   
   function random(array){
     let num = "";
@@ -46,6 +44,7 @@ num+=array[j]
       console.log(randomNum)
       
       let randomArray = randomNum.split("").map(Number);
+      // just adds the inputs to container 
   function addInput(){
    let countOut = 1;
     for(let i=0;i<5;i++){
@@ -61,7 +60,7 @@ for(let i=0;i<4;i++){
    
   }
 
-     
+     //whole process of cheking here
   function check(){
       let userInput = [...document.querySelectorAll(`.input-${counter}`)];
       let userInputValues = [...document.querySelectorAll(`.input-${counter}`)].map(item=>item.value=item.value===""?"-1":item.value).map(Number)
@@ -82,7 +81,8 @@ userInput[i].style.backgroundColor="#FFD700";
           userInput[i].style.backgroundColor="gray";
           userInput[i].style.animation="shake .2s"
         }
-      }
+      } 
+      //if the user input is right beofre 5 tries or in the 5th
       if(userInputValues.join("")===randomNum){
         checker.style.display="none";
         hintBtn.style.display="none";
@@ -97,6 +97,7 @@ userInput[i].style.backgroundColor="#FFD700";
             score+=5;
         scoreText.textContent=score;
       }
+      //if userinput not correct or tries ended
       else if(counter>=5){
         checker.style.display="none";
          hintBtn.style.display="none";
@@ -112,14 +113,7 @@ userInput[i].style.backgroundColor="#FFD700";
       counter++;
       cIn = 1;
     }
-    function checkInput(elem){
-        if(elem.value===""){
-          elem.style.backgroundColor="black"
-        }
-        else{
-          elem.style.backgroundColor="";
-        }
-    }
+    //when start is pressed
     function startGame(elem){
         addInput();
         container.style.display="flex";
@@ -129,12 +123,13 @@ userInput[i].style.backgroundColor="#FFD700";
      checkInput()
  
     }
+    //when check is clicked 
     function continueGame(elem){
   check();
         const all =  document.querySelectorAll(".input");
      all.forEach(item=>item.setAttribute("disabled",true));
     }
-   
+   //add input from the numbers keyboard
     function addNumber(elem){
        let save = document.querySelector(`.input-${counter}-${cIn}`);
        if(save!==null && cIn<=4){
@@ -148,6 +143,7 @@ userInput[i].style.backgroundColor="#FFD700";
        }
     
     }
+    //delete them
     function deleteInput(){
         let save = document.querySelector(`.input-${counter}-${cIn}`);
         if(save!==null){
@@ -164,6 +160,7 @@ if(save.value==="" && cIn>1){
         }
      
     }
+    //back to home option
      function goHome(){
       counter=1;
       randomNum=random(arrayNums);
@@ -172,6 +169,7 @@ if(save.value==="" && cIn>1){
   home.style.display="flex";
   resultBox.style.display="none"
      }
+     //retry
      function playAgain(){
        counter=1;
       randomNum=random(arrayNums);
@@ -184,6 +182,7 @@ if(save.value==="" && cIn>1){
         hintBtn.style.display="block";
         checkInput()
      }
+     //dialogs here
     function openDialog(){
 dialogInstruction.showModal()
     }
@@ -200,6 +199,7 @@ dialogInstruction.showModal()
       <button onclick="closeDialog(this)" type="button">Cancel</button>
       `:`You Have No enough Points <button type="button" onclick="closeDialog(this)">Close</button>`
     }
+    //buying the answrer here
     function buyHint(elem){
       if(score>=6){
         actionDialog.innerHTML=`Here You Go ${randomNum};
