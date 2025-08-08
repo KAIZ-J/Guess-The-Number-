@@ -40,17 +40,57 @@ body{
       text-align: center;
       border-radius: 10px;
       outline:none;
+      transition:background-color 0.3s ease;
     }
     #checker{
-      display: none;
-      border-radius: 5px;
-      border: none;
-      padding: 10px;
-      width: 200px;
+        display: none;
+grid-template-columns: repeat(5,1fr);
+      column-gap: 20px;
+      row-gap: 5px;
       font-size: 1.3rem;
-        background-color: #9777b5;
+      color: #090d11;
+    }
+    #checker button:not(#check-btn,#remove){
+        border-radius: 5px;
+      border: none;
+      padding: 5px;
+      width: 70px;
+      font-size: 1rem;
       color: #090d11;
       cursor: pointer;
+    }
+   
+    @keyframes anima {
+      0%{
+        scale:1
+      }
+      50%{
+        scale: 1.2;
+      }
+      100%{scale: 1;}
+    }
+@keyframes shake {
+      0%{
+        transform: translateX(2px);
+      }
+      50%{
+       transform: translateX(-2px);
+      }
+      100%{ transform: translateX(0px);}
+    }
+    #check-btn{
+        grid-column-start: span 4;
+        width: auto;
+    }
+     @media (max-width:500px){
+      #checker{
+        grid-template-columns: repeat(3,1fr);
+        row-gap: 10px;
+      }
+      #remove{
+        grid-column-start: span 2;
+        width: auto;
+      }
     }
     #home{
       display: flex;

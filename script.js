@@ -1,4 +1,17 @@
 
+   let arrayNums = [0,1,2,3,4,5,6,7,8,9];
+  const hintBtn = document.getElementById("hint");
+  const actionDialog = document.getElementById("actionDialog")
+  const scoreText =  document.getElementById("score")
+  const dialogInstruction = document.getElementById("instructions")
+  const home = document.getElementById("home")
+  const resultBox =  document.getElementById("result-box")
+  const checker = document.getElementById("checker");
+  checker.innerHTML=arrayNums.map(el=>`<button type="button" onclick="addNumber(this)" >${el}</button>`).join(" ")
+  checker.innerHTML+=`<button type="button" onclick="deleteInput()" id="remove" >X</button>
+  <button type="button" onclick="continueGame(this)" id="check-btn" >Check</button>`;
+  const container= document.getElementById("container");
+
   function mode(array){
     const obj = {};
     array.forEach(el=>{
@@ -12,21 +25,20 @@
     return obj;
   }
   let counter = 1;
+   let cIn = 1;
   let score=0;
   let scoreObj = {scoreValue:score}
-  const hintBtn = document.getElementById("hint");
-  const actionDialog = document.getElementById("actionDialog")
-  const scoreText =  document.getElementById("score")
-  const dialogInstruction = document.getElementById("instructions")
-  const home = document.getElementById("home")
-  const resultBox =  document.getElementById("result-box")
-  const checker = document.getElementById("checker")
-  const container= document.getElementById("container");
-  let arrayNums = [0,1,2,3,4,5,6,7,8,9];
+  
+  
   function random(array){
     let num = "";
-    for(let i=0;i<4;i++){
-      num+=array[Math.floor(Math.random()*array.length)]
+    for(let i=0;;i++){
+        const j = Math.floor(Math.random()*array.length)
+        if(!num.includes(array[j])){
+num+=array[j]
+        }
+        if(num.length===4) break;
+      
     }
     return num;
   }
@@ -35,25 +47,30 @@
       
       let randomArray = randomNum.split("").map(Number);
   function addInput(){
-    counter++;
-    let elem = document.createElement("div")
-   for(let i=0;i<4;i++){
-     elem.innerHTML+=`<input type="number" class="input input-${counter}" oninput="checkInput();"/> `
+   let countOut = 1;
+    for(let i=0;i<5;i++){
+        let elem = document.createElement("div")
+ let countIn = 1;
+for(let i=0;i<4;i++){
+     elem.innerHTML+=`<input type="number" readonly class="input input-${countOut} input-${countOut}-${countIn}" oninput="checkInput(this);"/> `
+     countIn++;
    }
+   countOut++;
    container.append(elem)
+    }
+   
   }
 
      
   function check(){
-    
       let userInput = [...document.querySelectorAll(`.input-${counter}`)];
-      
       let userInputValues = [...document.querySelectorAll(`.input-${counter}`)].map(item=>item.value=item.value===""?"-1":item.value).map(Number)
       let pcCount = mode(randomArray)
   let userCount = mode(userInputValues)
       for(let i=0;i<4;i++){
      if(userInputValues[i]===randomArray[i]){
    userInput[i].style.backgroundColor="#00FA9A";
+   userInput[i].style.animation="anima 0.4s";
    userCount[userInputValues[i]]-=1;
    pcCount[userInputValues[i]]-=1;
         }
@@ -62,6 +79,8 @@ userInput[i].style.backgroundColor="#FFD700";
         }
         else{
           userCount[userInputValues[i]]-=1;
+          userInput[i].style.backgroundColor="gray";
+          userInput[i].style.animation="shake .2s"
         }
       }
       if(userInputValues.join("")===randomNum){
@@ -70,7 +89,7 @@ userInput[i].style.backgroundColor="#FFD700";
           container.style.display="none";
           resultBox.style.display="flex";
           resultBox.innerHTML=`<h2>You Got it Right</h2>
-          <p>5points added to your score</p>
+          <h3>+5 Points</h3>
           <div>
             <button type="button" onclick="goHome()" >Home</button>
             <button type="button" onclick="playAgain()" >Play Again</button>
@@ -78,7 +97,7 @@ userInput[i].style.backgroundColor="#FFD700";
             score+=5;
         scoreText.textContent=score;
       }
-      else if(counter>5){
+      else if(counter>=5){
         checker.style.display="none";
          hintBtn.style.display="none";
         container.style.display="none";
@@ -90,21 +109,21 @@ userInput[i].style.backgroundColor="#FFD700";
             <button type="button" id="" onclick="playAgain()" >Play Again</button>
             </div>`;
       }
-      
+      counter++;
+      cIn = 1;
     }
-    function checkInput(){
-        const inputs = document.querySelectorAll(".input");
-     inputs.forEach(item=>item.addEventListener("input",function(){
-        if(this.value.length>1){
-      this.value=this.value.slice(0,1);
-       
+    function checkInput(elem){
+        if(elem.value===""){
+          elem.style.backgroundColor="black"
         }
-     }))
+        else{
+          elem.style.backgroundColor="";
+        }
     }
     function startGame(elem){
         addInput();
         container.style.display="flex";
-        checker.style.display="block";
+        checker.style.display="grid";
         hintBtn.style.display="block";
      elem.parentElement.style.display="none";
      checkInput()
@@ -114,13 +133,21 @@ userInput[i].style.backgroundColor="#FFD700";
   check();
         const all =  document.querySelectorAll(".input");
      all.forEach(item=>item.setAttribute("disabled",true));
-        
-     if(counter<6){
-       addInput();
     }
-   else{
-    return;
-   }
+   
+    function addNumber(elem){
+       const save = document.querySelector(`.input-${counter}-${cIn}`);
+       if(save!==null){
+   save.value=elem.innerText;
+       }
+     cIn++; 
+    }
+    function deleteInput(){
+       let userInput = [...document.querySelectorAll(`.input-${counter}`)];
+       for(let i=0;i<userInput.length;i++){
+      userInput[i].value==="";
+       }
+       cIn=1;
     }
      function goHome(){
       counter=1;
@@ -138,7 +165,7 @@ userInput[i].style.backgroundColor="#FFD700";
   resultBox.style.display="none"
       addInput();
         container.style.display="flex";
-        checker.style.display="block";
+        checker.style.display="grid";
         hintBtn.style.display="block";
         checkInput()
      }
