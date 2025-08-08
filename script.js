@@ -157,11 +157,10 @@ if(save.value==="" && cIn>1){
           save.value=""
         }
        else{
-        save.value=""
+        cIn=4
+        save = document.querySelector(`.input-${counter}-${cIn}`);
+        save.value="";
        }
-        }
-        else{
-          cIn=4;
         }
      
     }
