@@ -46,7 +46,6 @@ num+=array[j]
       console.log(randomNum)
       
       let randomArray = randomNum.split("").map(Number);
-      // just adds the inputs to container 
       //input adding 
   function addInput(){
    let countOut = 1;
@@ -63,7 +62,6 @@ for(let i=0;i<4;i++){
    
   }
 
-     //whole process of cheking here
      //whole prcosess of checking the number inputed by user
   function check(){
       let userInput = [...document.querySelectorAll(`.input-${counter}`)];
@@ -85,7 +83,7 @@ userInput[i].style.backgroundColor="#FFD700";
           userInput[i].style.backgroundColor="gray";
           userInput[i].style.animation="shake .2s"
         }
-      } 
+      }
       //if the user input is right beofre 5 tries or in the 5th
       if(userInputValues.join("")===randomNum){
         checker.style.display="none";
