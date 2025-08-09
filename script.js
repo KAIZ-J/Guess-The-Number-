@@ -27,6 +27,7 @@
   }
   let counter = 1;
    let cIn = 1;
+   let hintCost  = parseInt(localStorage.getItem("myHintCost")) || 6;
   let score=parseInt(localStorage.getItem("myScore")) || 0;
   scoreText.textContent=score;
   
@@ -49,7 +50,7 @@ num+=array[j]
       //input adding 
   function addInput(){
    let countOut = 1;
-    for(let i=0;i<5;i++){
+    for(let i=0;i<4;i++){
         let elem = document.createElement("div")
  let countIn = 1;
 for(let i=0;i<4;i++){
@@ -107,8 +108,8 @@ numCurrent.style.backgroundColor="gray";
         hintBtn.style.display="none";
           container.style.display="none";
           resultBox.style.display="flex";
-          resultBox.innerHTML=`<h2>You Got it Right</h2>
-          <h3>+5 Points</h3>
+          resultBox.innerHTML=`<h1>Good Job! </h1>
+          <h2>+5 Points</h2>
           <div>
             <button type="button" onclick="goHome()" >Home</button>
             <button type="button" onclick="playAgain()" >Play Again</button>
@@ -121,7 +122,7 @@ numCurrent.style.backgroundColor="gray";
             
       }
       //when trial ends
-      else if(counter>=5){
+      else if(counter>=4){
          setTimeout(function(){
           checker.style.display="none";
          hintBtn.style.display="none";
@@ -225,18 +226,20 @@ dialogInstruction.showModal()
       actionDialog.innerHTML= score>=6? `
       <h1>Get Answer</h1>
       <p>You have ${score} points <p/>
-      <p>Get answer with 6 points</p>
+      <p>Get answer with ${hintCost} points</p>
       <button type="button" onclick="buyHint(this)">Buy</button>
       <button onclick="closeDialog(this)" type="button">Cancel</button>
       `:`You Have No enough Points <button type="button" onclick="closeDialog(this)">Close</button>`
     }
     function buyHint(elem){
-      if(score>=6){
+      if(score>=hintCost){
         actionDialog.innerHTML=`Here You Go ${randomNum};
         <button type="button" onclick="closeDialog(this)">Close</button>`;
-        score-=6;
+        score-=hintCost;
         localStorage.setItem("myScore",score)
         scoreText.textContent=score;
+        hintCost+=2;
+        localStorage.setItem("myHintCost",hintCost)
         elem.style.display="none";
         hintBtn.style.display="none";
         
