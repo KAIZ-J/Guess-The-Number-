@@ -159,7 +159,7 @@ numCurrent.style.backgroundColor="gray";
    //add to input
     function addNumber(elem){
        let save = document.querySelector(`.input-${counter}-${cIn}`);
-       if(save!==null && cIn<=4){
+       if(save!==null && cIn<4){
         cIn++; 
    save.value=elem.innerText;
        }
@@ -173,21 +173,21 @@ numCurrent.style.backgroundColor="gray";
     //bacspace
     function deleteInput(){
         let save = document.querySelector(`.input-${counter}-${cIn}`);
-        if(save!==null){
+        
 if(save.value==="" && cIn>1){
           cIn--;
           save = document.querySelector(`.input-${counter}-${cIn}`);
           save.value=""
         }
-       else{
-        save.value=""
+       else if(save.value!=="" && cIn>1){
+        save.value="";
        }
+       
+
         }
-        else{
-          cIn=4;
-        }
+        
      
-    }
+    
      function goHome(){
       counter=1;
       randomNum=random(arrayNums);
@@ -223,7 +223,7 @@ dialogInstruction.showModal()
     }
     function openActionDialog(elem){
       actionDialog.showModal();
-      actionDialog.innerHTML= score>=6? `
+      actionDialog.innerHTML= score>=hintCost? `
       <h1>Get Answer</h1>
       <p>You have ${score} points <p/>
       <p>Get answer with ${hintCost} points</p>
