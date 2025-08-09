@@ -27,6 +27,7 @@
   }
   let counter = 1;
    let cIn = 1;
+   let gameStarted = false;
    let hintCost  = parseInt(localStorage.getItem("myHintCost")) || 6;
   let score=parseInt(localStorage.getItem("myScore")) || 0;
   scoreText.textContent=score;
@@ -65,6 +66,7 @@ for(let i=0;i<4;i++){
 
      //whole prcosess of checking the number inputed by user
   function check(){
+    gameStarted=true;
     let numBtns = [...document.querySelectorAll(`.num-btn`)];
       let userInput = [...document.querySelectorAll(`.input-${counter}`)];
       let userInputValues = [...document.querySelectorAll(`.input-${counter}`)].map(item=>item.value=item.value===""?"0":item.value).map(Number)
@@ -115,7 +117,7 @@ numCurrent.style.backgroundColor="gray";
             <button type="button" onclick="playAgain()" >Play Again</button>
             </div>`;
         },1000)
-        
+          gameStarted=false;
             score+=5;
             localStorage.setItem("myScore",score);
             scoreText.textContent=score;
@@ -123,6 +125,7 @@ numCurrent.style.backgroundColor="gray";
       }
       //when trial ends
       else if(counter>=4){
+        gameStarted=false;
          setTimeout(function(){
           checker.style.display="none";
          hintBtn.style.display="none";
@@ -142,19 +145,17 @@ numCurrent.style.backgroundColor="gray";
     }
     //start buton pressed
     function startGame(elem){
+      gameStarted=true;
         addInput();
         container.style.display="flex";
         checker.style.display="grid";
         hintBtn.style.display="block";
      elem.parentElement.style.display="none";
-     checkInput()
  
     }
     //when check button clicked
     function continueGame(elem){
   check();
-        const all =  document.querySelectorAll(".input");
-     all.forEach(item=>item.setAttribute("disabled",true));
     }
    //add to input
     function addNumber(elem){
@@ -183,12 +184,40 @@ if(save.value==="" && cIn>1){
         save.value="";
        }
        
-
         }
-        
-     
+      document.addEventListener("keypress",function(e){
+       if(arrayNums.some(el=>el===parseInt(e.key)) && gameStarted===true){
+ let save = document.querySelector(`.input-${counter}-${cIn}`);
+       if(save!==null && cIn<4){
+        cIn++; 
+   save.value=parseInt(e.key);
+       }
+       else if(gameStarted===true && cIn===4){
+       save.value=parseInt(e.key);
+       }
+       }
+      
+      }) 
+       document.addEventListener("keydown",function(e){
+if(e.keyCode===8 && gameStarted===true){
+        let save = document.querySelector(`.input-${counter}-${cIn}`);
+if(save.value==="" && cIn>1){
+          cIn--;
+          save = document.querySelector(`.input-${counter}-${cIn}`);
+          save.value=""
+        }
+       else if(save.value!=="" && cIn>1){
+        save.value="";
+       }
+       }
+       })
+     document.addEventListener("keydown",function(e){
+  if(e.key==="Enter" && gameStarted===true){
+check();
+     }})
     
      function goHome(){
+      cIn=1;
       counter=1;
       randomNum=random(arrayNums);
       randomArray = randomNum.split("").map(Number)
@@ -201,6 +230,7 @@ if(save.value==="" && cIn>1){
   objTry = {0:true,1:true,2:true,3:true,4:true,5:true,6:true,7:true,8:true,9:true}
      }
      function playAgain(){
+      gameStarted=true;
        counter=1;
       randomNum=random(arrayNums);
       randomArray = randomNum.split("").map(Number)
