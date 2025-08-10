@@ -63,9 +63,9 @@ for(let i=0;i<4;i++){
     }
    
   }
-
      //whole prcosess of checking the number inputed by user
   function check(){
+    let delay = 0;
     gameStarted=true;
     let numBtns = [...document.querySelectorAll(`.num-btn`)];
       let userInput = [...document.querySelectorAll(`.input-${counter}`)];
@@ -77,6 +77,8 @@ for(let i=0;i<4;i++){
      if(userInputValues[i]===randomArray[i]){
    userInput[i].style.backgroundColor="#00FA9A";
    userInput[i].style.animation="anima 0.4s";
+   userInput[i].style.animationDelay=`${delay}s`;
+   delay+=0.15;
   //  numCurrent.style.animation="rotate 1s ease-in-out forwards";
    numCurrent.style.backgroundColor="#00FA9A";
    objTry[userInputValues[i]]=false;
@@ -100,7 +102,7 @@ objTry[userInputValues[i]]=false;
 numCurrent.style.backgroundColor="gray";
 }
           
-          userInput[i].style.animation="shake .2s"
+          userInput[i].style.animation="shake .15s"
         }
       }
       //if the user input is right beofre 5 tries or in the 5th
@@ -199,7 +201,7 @@ if(save.value==="" && cIn>1){
       
       }) 
        document.addEventListener("keydown",function(e){
-if(e.keyCode===8 && gameStarted===true){
+if(e.key==="Backspace" && gameStarted===true){
         let save = document.querySelector(`.input-${counter}-${cIn}`);
 if(save.value==="" && cIn>1){
           cIn--;
@@ -215,7 +217,12 @@ if(save.value==="" && cIn>1){
   if(e.key==="Enter" && gameStarted===true){
 check();
      }})
-    
+    document.addEventListener("keydown",e=>{
+    if(e.key==="escape"){
+      actionDialog.close()
+      dialogInstruction.close()
+    }
+    })
      function goHome(){
       cIn=1;
       counter=1;
