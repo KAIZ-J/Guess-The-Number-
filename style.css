@@ -154,18 +154,7 @@ border-radius: 5px;
       color: #090d11;
       cursor: pointer; 
      }   
-     #instructions{
-      width: 70%;
-      height: 300px;
-      overflow-y: auto;
-      border-radius: 10px;
-      border: 5px solid #9777b5;
-    padding: 20px;
-  text-wrap: balance;
-    border-radius: 20px;
-   background-color: #433968 ;
-   color:#090d11;
-     }
+    
 #actionDialog{
   width: 80%;
       border-radius: 10px;
@@ -253,3 +242,34 @@ margin-right: 20px;
   right: 0;
 }
           }
+
+  #cards-container{
+            width: 100%;
+            overflow-x: scroll;
+            display: flex;
+            gap: 20px;
+            scroll-snap-type: x mandatory;
+            cursor: pointer;
+            border:none;
+        }
+        #cards-container .card{
+            scroll-snap-align: center;
+           height: 300px;
+            width: 100%;
+            align-content: center;
+            text-align: center;
+            flex-shrink: 0;/*prolly plays the main role*/
+          
+        }
+        #instructions p{
+          font-size: 0.95rem;
+        }
+         #instructions{
+      width: 70%;
+      border-radius: 10px;
+      border: 5px solid #9777b5;
+  text-wrap: balance;
+    border-radius: 20px;
+   background-color: #433968 ;
+   color:#090d11;
+     }

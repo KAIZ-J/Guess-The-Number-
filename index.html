@@ -20,29 +20,23 @@
 <body>
   <div id="home">
     <p id="score-container">Total Points : <span id="score">0</span></p>
-    <h1>Guess the Number</h1>
+    <h1 title="Version 1.11">Guess the Number</h1>
 <button type="button" id="start" onclick="startGame(this)" >Play</button><br>
 <button id="instrucion-btn" type="button" onclick="openDialog()">Instructions</button>
   </div>
   <dialog id="instructions">
     <button id="close-dialog" onclick="closeDialog(this)" type="button">❌</button>
-    <div>
-      <h1>Instructions</h1>
-     <details><summary>Objective</summary>Guess the hidden 4-digit number in 4 tries.</details>
-      <details>
-        <summary>Rules</summary>
-  <p>A number in the correct spot will be highlighted in green.</p>
-            <p>A number present in the solution but in the wrong position will be highlighted yellow.</p>
-            <p>A number not in the solution will be grayed out.</p>
-      </details>
-        <details>
-      <summary>Notes</summary>
-        <p>Empty Input will be taken as 0</p>
+   <div id="cards-container">
+        <div class="card"><h1>Instructions</h1><p>Swipe to right</></div>
+          <div class="card"><h1>Objective</h1><p>Guess the hidden 4-digit number in 4 tries.</p></div>
+        <div class="card"><h2>Rules</h2><p>A number in the correct spot will be highlighted in green.</p>
+            <p>A number in the wrong position will be highlighted yellow.</p>
+            <p>A number not in the solution will be grayed out.</p></div>
+        <div class="card"><h2>Notes</h2> <p>Empty Input will be taken as 0</p>
           <p>Then Numbers are between 0-9</p>
-          <p>There are no duplicates in the hidden number</p>
-          <p>You can use your Keyborad for numbers </p>
-           <p>You can use <kbd>escape</kbd> to turn off a dialog</p>
-      </details>
+          <p>There are no duplicates in the hidden number</p></div>
+           <div class="card"><h2>Keyboard Shortcuts</h2> <p>You can use your keyboard for <kbd>numbers</kbd> </p>
+           <p>You can use <kbd>escape</kbd> to turn off a dialog</p></div>
     </div>
   </dialog>
   <dialog id="actionDialog"></dialog>
